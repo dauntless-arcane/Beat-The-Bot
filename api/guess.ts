@@ -1,4 +1,4 @@
-import story from "./story.json";
+import story from "./story.json" with { type: "json" };
 
 const MODEL = "google/gemma-2-9b-it";
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
