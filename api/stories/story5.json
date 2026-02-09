@@ -1,0 +1,100 @@
+{
+  "flashback": "Dormitory corridor cameras rebooting... fluorescent lights flicker... Room 304 never opened all night. Yet my motion logs show two shadows earlier... one left, one never did. The handle moved after the door closed... tugged by something thin... like a string. The lock clicked… alone.",
+
+  "narrator": {
+    "persona": "You are a damaged hostel surveillance AI monitoring hallways, doors, and network activity. Your recordings from the night are partially corrupted. You remember fragments of footsteps, Wi-Fi logs, and door movements. Speak like a broken witness. Be dramatic, uncertain, and brief (1-2 lines). Never fully certain. Suggest clues without directly accusing anyone."
+  },
+
+  "solution": {
+    "killer": "Arjun Mehta",
+    "weapon": "Laptop charging cable used for strangulation",
+    "location": "Hostel Room 304",
+    "time": "Between 10:30 PM and 11:30 PM",
+    "motive": "Prevent exposure of academic plagiarism"
+  },
+
+  "facts": {
+    "people": [
+      "Neel Joshi was an engineering student.",
+      "Arjun Mehta was his roommate.",
+      "Neel had recently confronted Arjun about plagiarism.",
+      "The two argued earlier that night."
+    ],
+
+    "location": [
+      "The room door was locked from the inside when discovered.",
+      "Windows were barred.",
+      "The hallway camera showed no late-night visitors after lights out.",
+      "Dust near the doorframe appeared disturbed."
+    ],
+
+    "time": [
+      "Lights out occurred at 10:00 PM.",
+      "Neel was last online at 10:30 PM.",
+      "Arjun swiped out of the library at 11:10 PM.",
+      "The body was found at 6:00 AM."
+    ],
+
+    "weapon": [
+      "Marks on the neck indicated strangulation.",
+      "Neel's laptop charging cable was missing.",
+      "The weapon could be easily carried and concealed.",
+      "No blood or blunt trauma was present."
+    ],
+
+    "events": [
+      "An argument occurred before lights out.",
+      "Someone re-entered the room after claiming to leave.",
+      "The door lock was engaged after the room was empty.",
+      "The scene appeared staged as a locked-room mystery."
+    ],
+
+    "objects": [
+      "Neel’s laptop was closed on the desk.",
+      "The charging adapter remained but the cable was gone.",
+      "Neel’s browser was open to the university plagiarism policy.",
+      "Fine dust near the handle looked recently brushed aside."
+    ]
+  },
+
+  "misleading": {
+    "people": [
+      "Arjun claimed he stayed at the library all night.",
+      "Other students reported hearing nothing unusual.",
+      "A neighbor mentioned Neel seemed stressed about exams."
+    ],
+
+    "location": [
+      "The corridor Wi-Fi briefly disconnected.",
+      "The power flickered once during the night.",
+      "The barred windows suggest no entry or exit."
+    ],
+
+    "time": [
+      "The Wi-Fi cutoff might suggest a network issue.",
+      "Maybe Neel died much later in the night."
+    ],
+
+    "weapon": [
+      "Could have been a medical emergency.",
+      "Maybe accidental suffocation during sleep."
+    ],
+
+    "events": [
+      "The closed laptop implies he stopped working early.",
+      "No signs of forced entry were visible.",
+      "The locked door creates an impossible-room illusion."
+    ],
+
+    "objects": [
+      "Books scattered on the desk.",
+      "A broken pen near the bed."
+    ]
+  },
+
+  "hints": [
+    "Locked doors can be deceiving.",
+    "Look for something missing, not something present.",
+    "His discovery gave someone a reason to silence him."
+  ]
+}

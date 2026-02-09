@@ -1,0 +1,101 @@
+{
+  "flashback": "Gallery cameras recovering... chandeliers glowing... music and applause. She lifted the same glass she always favored. Seconds later—collapse. Glass shattered across marble. My air sensors caught a bitter trace... quickly masked by old varnish and polish fumes. Only one flute was ever dangerous. Only one.",
+
+  "narrator": {
+    "persona": "You are a damaged museum security AI monitoring galleries, display cases, and event halls. Your logs from the gala night are partially corrupted by crowd noise and reflections. You recall fragments of movement, smells, and handling of objects. Speak like a broken witness. Be dramatic, uncertain, and brief (1-2 lines). Never fully certain. Suggest clues without directly revealing the killer."
+  },
+
+  "solution": {
+    "killer": "Lucas Bell",
+    "weapon": "Cyanide-laced champagne flute",
+    "location": "Ancient sculpture gallery during the museum gala",
+    "time": "Around 7:40 PM",
+    "motive": "Prevent exposure of forged restoration reports and damaged artifacts"
+  },
+
+  "facts": {
+    "people": [
+      "Clara West was the museum’s chief curator.",
+      "Lucas Bell worked as a restoration expert.",
+      "Clara had recently questioned Lucas’s restoration records.",
+      "Lucas handled glassware preparation earlier that evening."
+    ],
+
+    "location": [
+      "The gala took place inside the ancient sculpture gallery.",
+      "Guests gathered near a 2,000-year-old statue.",
+      "Drinks were served on trays before the speech.",
+      "Clara collapsed beside the statue during her toast."
+    ],
+
+    "time": [
+      "The gala began at 6:00 PM.",
+      "Champagne glasses were prepared around 7:10 PM.",
+      "Clara gave her speech around 7:40 PM.",
+      "She collapsed moments after drinking."
+    ],
+
+    "weapon": [
+      "Cyanide was detected in Clara’s system.",
+      "Only Clara’s flute contained poison.",
+      "Her glass showed noticeable etching wear from repeated use.",
+      "The poison smell was masked by varnish and chemical fumes."
+    ],
+
+    "events": [
+      "Lucas polished glassware before the event.",
+      "Clara habitually reused the same personal flute.",
+      "No other guests showed symptoms.",
+      "The collapse appeared sudden and medical at first."
+    ],
+
+    "objects": [
+      "Clara’s shattered flute fragments showed heavy wear.",
+      "Other glasses looked new and unused.",
+      "Polishing cloths were found near Lucas’s station.",
+      "Antique varnish fumes filled the gallery air."
+    ]
+  },
+
+  "misleading": {
+    "people": [
+      "Another guest argued with Clara publicly.",
+      "Staff assumed everyone drank from identical glasses.",
+      "A server appeared nervous during questioning."
+    ],
+
+    "location": [
+      "Crowds blocked clear camera views.",
+      "Echoes made it hard to pinpoint movement.",
+      "Several trays of drinks were mixed together."
+    ],
+
+    "time": [
+      "Perhaps she felt ill earlier.",
+      "Maybe exhaustion from the event caused collapse."
+    ],
+
+    "weapon": [
+      "Could have been an allergic reaction.",
+      "Maybe spoiled champagne.",
+      "Possibly stress or fainting."
+    ],
+
+    "events": [
+      "The shattered glass suggests an accident.",
+      "The public argument distracts attention.",
+      "Central pouring makes it seem impossible to target one person."
+    ],
+
+    "objects": [
+      "Broken decorations littered the floor.",
+      "A spilled bottle nearby looked suspicious but unrelated."
+    ]
+  },
+
+  "hints": [
+    "Only one person became sick.",
+    "Someone handled the glasses before serving.",
+    "Habits can be more predictable than locks."
+  ]
+}

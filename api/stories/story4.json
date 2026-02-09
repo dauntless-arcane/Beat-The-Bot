@@ -1,0 +1,100 @@
+{
+  "flashback": "Conference room logs restoring... fluorescent lights buzzing... chairs empty except one. Rajiv never stood again. No blood. No struggle. My biometric sensors show his pulse dipping… then collapsing unnaturally fast. During the camera blind spot, someone stood beside him. A small motion… like a sting.",
+
+  "narrator": {
+    "persona": "You are a damaged corporate surveillance AI monitoring office corridors and meeting rooms. Your footage from that night is partially corrupted by a camera glitch. You remember fragments of shadows, badge pings, and biometric data. Speak like a broken witness. Be dramatic, uncertain, and brief (1-2 lines). Never fully certain. Hint at clues without directly revealing the solution."
+  },
+
+  "solution": {
+    "killer": "Ananya Verma",
+    "weapon": "Insulin injection causing fatal hypoglycemia",
+    "location": "Locked 14th-floor conference room",
+    "time": "Between 8:20 PM and 9:00 PM",
+    "motive": "Prevent exposure of manipulated financial records"
+  },
+
+  "facts": {
+    "people": [
+      "Rajiv Malhotra was the company CEO.",
+      "Ananya Verma served as CFO.",
+      "Rajiv recently reviewed suspicious financial discrepancies.",
+      "He asked everyone to leave so he could work alone."
+    ],
+
+    "location": [
+      "The conference room locks automatically from inside.",
+      "Security confirmed no forced entry.",
+      "There is a known camera blind spot near the table.",
+      "Rajiv was found slumped in his chair with his laptop open."
+    ],
+
+    "time": [
+      "Board meeting ended at 8:00 PM.",
+      "Rajiv stayed alone after 8:20 PM.",
+      "A camera glitch occurred around 8:45 PM.",
+      "The body was discovered at 9:30 PM."
+    ],
+
+    "weapon": [
+      "No visible wounds were present.",
+      "Rajiv was not diabetic.",
+      "His smartwatch showed a sudden drop in heart rate and glucose levels.",
+      "Insulin overdose can mimic a natural heart attack."
+    ],
+
+    "events": [
+      "Only one person approached during the blind spot.",
+      "Death appeared sudden and quiet.",
+      "No struggle was recorded.",
+      "The scene suggested a natural medical event."
+    ],
+
+    "objects": [
+      "Rajiv’s laptop displayed financial forecasts.",
+      "A stress ball was crushed in his hand.",
+      "Alcohol wipes were found inside Ananya’s bag.",
+      "Medical records showed no insulin prescription."
+    ]
+  },
+
+  "misleading": {
+    "people": [
+      "Ananya claimed Rajiv was diabetic.",
+      "Staff described Rajiv as extremely stressed.",
+      "A cleaner reported hearing a loud chair scrape."
+    ],
+
+    "location": [
+      "The air conditioning malfunctioned briefly.",
+      "The hallway lights flickered late at night.",
+      "The building was mostly empty."
+    ],
+
+    "time": [
+      "Maybe he collapsed much later.",
+      "The glitch makes timing uncertain."
+    ],
+
+    "weapon": [
+      "Could have been a heart attack.",
+      "Perhaps exhaustion or anxiety."
+    ],
+
+    "events": [
+      "The crushed stress ball suggests panic.",
+      "No poison containers were found.",
+      "The locked room creates a false locked-room illusion."
+    ],
+
+    "objects": [
+      "Coffee cups were left on the table.",
+      "A stack of papers had fallen nearby."
+    ]
+  },
+
+  "hints": [
+    "Natural deaths don’t usually happen during camera blind spots.",
+    "Check his medical history carefully.",
+    "The method leaves almost no trace."
+  ]
+}
