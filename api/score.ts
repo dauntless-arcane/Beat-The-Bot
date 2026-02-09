@@ -11,29 +11,37 @@ export default function handler(req: any, res: any) {
     return res.json(scores);
   }
 
-  /* ================= POST (save score) ================= */
-  if (req.method === "POST") {
-    const { name, score, hintsUsed, questionsUsed } = req.body;
+  /* ================= POST ================= */
+    if (req.method === "POST") {
+      const { name, score, hintsUsed, questionsUsed } = req.body;
 
-    const scores = getScoresFromJSON();
+      // 🔥 ALWAYS read fresh copy
+      let scores: any[] = [];
 
-    scores.push({
-      name,
-      score,
-      hintsUsed,
-      questionsUsed,
-      date: Date.now()
-    });
+      if (fs.existsSync(filePath)) {
+        scores = JSON.parse(fs.readFileSync(filePath, "utf-8") || "[]");
+      }
 
-    scores.sort((a: any, b: any) =>
-      b.score !== a.score
-        ? b.score - a.score
-        : b.date - a.date
-    );
+      // 🔥 push new entry
+      scores.push({
+        name,
+        score,
+        hintsUsed,
+        questionsUsed,
+        date: Date.now()
+      });
 
-    fs.writeFileSync(filePath, JSON.stringify(scores, null, 2));
+      // 🔥 sort
+      scores.sort((a, b) =>
+        b.score !== a.score
+          ? b.score - a.score
+          : b.date - a.date
+      );
 
-    return res.json({ ok: true });
+      // 🔥 overwrite file
+      fs.writeFileSync(filePath, JSON.stringify(scores, null, 2));
+
+      return res.json({ ok: true });
   }
 
   /* ================= fallback ================= */
