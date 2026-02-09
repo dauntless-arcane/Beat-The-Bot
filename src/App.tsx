@@ -59,7 +59,7 @@ export default function App() {
 
   useEffect(() => {
     const i = setInterval(() => {
-      fetch("/api/activeStory.json", {
+      fetch("/api/activeStory", {
         cache: "no-store"
       })
 
