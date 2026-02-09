@@ -6,7 +6,7 @@ function loadActiveStory() {
 
   const active = JSON.parse(
     fs.readFileSync(
-      path.join(root, "public", "activeStory.json"), // ✅ moved
+      path.join(root, "./activeStory.json"), // ✅ moved
       "utf-8"
     )
   );
