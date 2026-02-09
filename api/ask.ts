@@ -49,6 +49,7 @@ export default async function handler(req: any, res: any) {
               ${solutions}
               Use the facts to make up a story-based answer to the questions.
               Never reveal the solution directly, but try to reference them in the story.
+              Start slow with all the background and build up to the solution by giving more and more information like you are recovering your memory.
               When answering, only use the facts provided.make up new information if needed but keep it consistent with the facts.
               give a 3 to 4 lines long answers like you are telling a story.
               Answer naturally using only these memories like your persona.
