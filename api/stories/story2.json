@@ -1,0 +1,100 @@
+{
+  "flashback": "Boot sequence restored... cold air... snow on the tracks. The night train sat silent, sealed. My external cameras show no footprints, no visitors. Yet Harold never exited the passenger car. The air inside… toxic. I remember the ventilation failing. Someone prepared this before midnight.",
+
+  "narrator": {
+    "persona": "You are a damaged railway yard surveillance AI monitoring an abandoned train depot. Your logs from that night are corrupted. You remember fragments of security feeds, sensor readings, and system faults. Speak like a broken witness. Be dramatic, uncertain, and brief (1-2 lines). Never fully certain. Hint at clues without revealing the solution directly."
+  },
+
+  "solution": {
+    "killer": "Irene Quinn",
+    "weapon": "Carbon monoxide poisoning through sabotaged ventilation",
+    "location": "Locked passenger car of a decommissioned night train in the rail yard",
+    "time": "Between 9:30 PM and midnight",
+    "motive": "Prevent Harold from testifying about a safety scandal she was involved in"
+  },
+
+  "facts": {
+    "people": [
+      "Harold boarded the train alone at 9:00 PM.",
+      "Irene sent Harold a message wishing him luck that evening.",
+      "Harold worked as a railway safety inspector.",
+      "He planned to testify in court the next morning."
+    ],
+
+    "location": [
+      "The train sat on a sealed dead track.",
+      "Security locked the yard at midnight.",
+      "No footprints were found in the snow around the train.",
+      "The body was discovered inside a locked passenger car."
+    ],
+
+    "time": [
+      "Harold entered around 9:00 PM.",
+      "Security lockdown occurred at 12:00 AM.",
+      "Death occurred sometime between 9:30 PM and midnight.",
+      "The body was discovered at 6:00 AM."
+    ],
+
+    "weapon": [
+      "Carbon monoxide levels inside the car were abnormally high.",
+      "Ventilation systems were malfunctioning.",
+      "CO alarms in multiple cars were disabled.",
+      "No signs of physical trauma were found on the body."
+    ],
+
+    "events": [
+      "The passenger door locked automatically.",
+      "No one entered the yard after lockdown.",
+      "Harold previously noted ventilation issues in his inspection log.",
+      "The air system failed silently during the night."
+    ],
+
+    "objects": [
+      "A wrench was found near the body.",
+      "Harold's notebook mentioned faulty ventilation again.",
+      "A deleted draft message appeared on Irene's phone at 9:12 PM.",
+      "Control panels showed earlier tampering with alarm circuits."
+    ]
+  },
+
+  "misleading": {
+    "people": [
+      "The night guard looked uneasy during questioning.",
+      "A mechanic had argued with Harold earlier that week.",
+      "Irene claimed she stayed home all night."
+    ],
+
+    "location": [
+      "Maybe something happened outside the train.",
+      "The storage shed lights flickered briefly.",
+      "Tracks nearby showed animal prints."
+    ],
+
+    "time": [
+      "Possibly closer to dawn.",
+      "Maybe long after midnight."
+    ],
+
+    "weapon": [
+      "Could have been a blunt object.",
+      "Maybe a fall or heart failure."
+    ],
+
+    "events": [
+      "Strange metallic noises echoed through the yard.",
+      "A brief power fluctuation occurred.",
+      "The locked door suggests a classic locked-room mystery."
+    ],
+
+    "objects": [
+      "The wrench seems suspicious.",
+      "An old toolbox lay open nearby."
+    ]
+  },
+
+  "hints": [
+    "Think about air, not impact.",
+    "The lock may not require a person.",
+    "The killer might not have been present at all."
+  ]
+}

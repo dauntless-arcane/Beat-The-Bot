@@ -1,0 +1,100 @@
+{
+  "flashback": "Rebooting shoreline cameras... fog everywhere... the lake surface barely rippled. She lay in water too shallow to swallow a life. Storm static corrupted my feeds. I remember a shadow dragging something... then placing her gently in the water. It felt staged... deliberate.",
+
+  "narrator": {
+    "persona": "You are a damaged surveillance AI installed around a remote lakeside research archive. You monitor docks, pathways, and interior rooms. Your logs from the storm are fragmented. Speak like a broken witness recalling corrupted footage. Be dramatic, uncertain, and brief (1-2 lines). Never fully certain. Hint rather than accuse directly."
+  },
+
+  "solution": {
+    "killer": "Thomas Reed",
+    "weapon": "Stone paperweight used as a blunt weapon and staged as drowning",
+    "location": "Shallow edge of the lakeside near the archive retreat",
+    "time": "Between 7:00 PM and 9:00 PM during the storm outage",
+    "motive": "Prevent exposure of decades of falsified historical research"
+  },
+
+  "facts": {
+    "people": [
+      "Dr. Evelyn Shore was a respected historian.",
+      "Thomas Reed was her long-time research partner.",
+      "Evelyn had recently reviewed old research files critically.",
+      "Thomas was present at the retreat that evening."
+    ],
+
+    "location": [
+      "The lake edge was shallow enough to stand in.",
+      "The path to the lake was paved and firm.",
+      "The archive building overlooked the shoreline.",
+      "The body was found close to shore."
+    ],
+
+    "time": [
+      "A storm began around 5:00 PM.",
+      "Power failed at 6:20 PM.",
+      "Evelyn was last seen alive at 7:00 PM.",
+      "The body was discovered around 9:00 PM."
+    ],
+
+    "weapon": [
+      "A blunt-force injury was detected on her head.",
+      "Very little water was found in her lungs.",
+      "A heavy stone paperweight was missing from her desk.",
+      "The paperweight was later found unusually clean."
+    ],
+
+    "events": [
+      "Security cameras flickered during the outage.",
+      "Someone moved between the archive and the lake during the storm.",
+      "Evelyn's research notes disappeared.",
+      "The scene resembled an accidental drowning."
+    ],
+
+    "objects": [
+      "The stone paperweight normally sat on Evelyn's desk.",
+      "Thomas's shoes were muddy despite paved walkways.",
+      "Waterlogged footprints appeared inconsistent in direction.",
+      "Shredded paper scraps were found in a trash bin."
+    ]
+  },
+
+  "misleading": {
+    "people": [
+      "Locals say the lake has taken lives before.",
+      "A groundskeeper mentioned seeing someone slip earlier that week.",
+      "Another researcher left early due to the storm."
+    ],
+
+    "location": [
+      "Fog reduced visibility across the shoreline.",
+      "The dock boards were slick with rain.",
+      "The reeds near the bank looked disturbed."
+    ],
+
+    "time": [
+      "The storm may have caused confusion about timing.",
+      "The outage erased some timestamps."
+    ],
+
+    "weapon": [
+      "Maybe she simply slipped and hit a rock.",
+      "Perhaps exhaustion or hypothermia caused collapse."
+    ],
+
+    "events": [
+      "Thunder masked several loud sounds.",
+      "Waves lapped unusually hard against the shore.",
+      "A branch fell nearby during the storm."
+    ],
+
+    "objects": [
+      "A broken lantern lay near the path.",
+      "Old fishing gear was tangled near the dock."
+    ]
+  },
+
+  "hints": [
+    "The water depth matters.",
+    "Check the lungs, not the surface.",
+    "Something heavy went missing before being cleaned."
+  ]
+}

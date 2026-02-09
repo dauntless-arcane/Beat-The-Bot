@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 
 type Msg = {
   role: "user" | "bot";
@@ -8,24 +7,9 @@ type Msg = {
 
 const API = import.meta.env.DEV ? "http://localhost:3000" : "";
 
-type GameState = {
-  messages: Msg[];
-  history: string[];
-  input: string;
-  questionsLeft: number;
-  startTime: number;
-  killer: string;
-  weapon: string;
-  location: string;
-  timeGuess: string;
-  hintsUsed: number; // ⭐ added
-  motive: string; // ⭐ added
-};
-
-const STORAGE_KEY = "beatTheBotGameState";
 
 export default function App() {
-  const navigate = useNavigate();
+  
 
   /* ---------------- State ---------------- */
 
@@ -34,114 +18,60 @@ export default function App() {
 
   const [input, setInput] = useState("");
   const [questionsLeft, setQuestionsLeft] = useState(20);
-  const [startTime, setStartTime] = useState(Date.now());
   const [loading, setLoading] = useState(false);
 
   const [showGuess, setShowGuess] = useState(false);
+  const [waiting, setWaiting] = useState(false); // ⭐ added
 
   const [killer, setKiller] = useState("");
   const [weapon, setWeapon] = useState("");
   const [location, setLocation] = useState("");
   const [timeGuess, setTimeGuess] = useState("");
 
-  const [hintsUsed, setHintsUsed] = useState(0); // ⭐ added
-  const [motive, setMotive] = useState(""); // ⭐ added
+  const [hintsUsed, setHintsUsed] = useState(0);
+  const [motive, setMotive] = useState("");
+
   const chatRef = useRef<HTMLDivElement>(null);
-
-  /* ---------------- Timer ---------------- */
-
-  const timeLeft = Math.max(
-    0,
-    600 - Math.floor((Date.now() - startTime) / 1000)
-  );
 
   /* ================================================= */
   /* Load Game State */
   /* ================================================= */
 
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-
-    if (saved) {
-      try {
-        const state: GameState = JSON.parse(saved);
-
-        setMessages(state.messages);
-        setHistory(state.history);
-        setInput(state.input);
-        setQuestionsLeft(state.questionsLeft);
-        setStartTime(state.startTime);
-        setKiller(state.killer);
-        setWeapon(state.weapon);
-        setLocation(state.location);
-        setTimeGuess(state.timeGuess);
-        setHintsUsed(state.hintsUsed || 0); // ⭐ restore
-        setMotive(state.motive || ""); // ⭐ restore
-      } catch {
-        localStorage.removeItem(STORAGE_KEY);
-      }
-    } else {
-      // first load → flashback
-      fetch(`${API}/api/ask`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          question: "__flashback__",
-          history: []
-        })
+    // Always start fresh on refresh - remove localStorage loading
+    fetch(`${API}/api/ask`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        question: "__flashback__",
+        history: []
       })
-        .then((r) => r.json())
-        .then((d) => {
-          setMessages([{ role: "bot", text: d.msg }]);
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        setMessages([{ role: "bot", text: d.msg }]);
+      });
+  }, []);
+
+  /* ================================================= */
+  /* Story change auto reset */
+  /* ================================================= */
+
+  useEffect(() => {
+    const i = setInterval(() => {
+      fetch(`${API}/api/activeStory.json`)
+        .then(r => r.json())
+        .then(data => {
+          if (data.id !== localStorage.getItem("storyId")) {
+            localStorage.clear();
+            window.location.reload();
+          }
         });
-    }
+    }, 5000);
+
+    return () => clearInterval(i);
   }, []);
 
-  /* ================================================= */
-  /* Save Game State */
-  /* ================================================= */
-
-  useEffect(() => {
-    const state: GameState = {
-      messages,
-      history,
-      input,
-      questionsLeft,
-      startTime,
-      killer,
-      weapon,
-      location,
-      timeGuess,
-      hintsUsed, // ⭐ save
-      motive // ⭐ save
-    };
-
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [
-    messages,
-    history,
-    input,
-    questionsLeft,
-    startTime,
-    killer,
-    weapon,
-    location,
-    timeGuess,
-    hintsUsed, // ⭐ dependency
-    motive // ⭐ dependency
-  ]);
-
-  /* ================================================= */
-  /* Timer tick */
-  /* ================================================= */
-
-  useEffect(() => {
-    const t = setInterval(() => {
-      setStartTime((p) => p);
-    }, 1000);
-
-    return () => clearInterval(t);
-  }, []);
 
   /* ================================================= */
   /* Auto Scroll */
@@ -151,15 +81,7 @@ export default function App() {
     chatRef.current?.scrollTo(0, chatRef.current.scrollHeight);
   }, [messages]);
 
-  /* ================================================= */
-
-  const formatTime = (s: number) => {
-    const m = Math.floor(s / 60);
-    const sec = s % 60;
-    return `${m}:${sec.toString().padStart(2, "0")}`;
-  };
-
-  const gameOver = questionsLeft <= 0 || timeLeft <= 0;
+  const gameOver = questionsLeft <= 0;
 
   /* ================================================= */
   /* Ask Question */
@@ -201,7 +123,7 @@ export default function App() {
   };
 
   /* ================================================= */
-  /* Hint (⭐ UPDATED ONLY HERE) */
+  /* Hint */
   /* ================================================= */
 
   const askHint = async () => {
@@ -215,8 +137,8 @@ export default function App() {
 
       setMessages((m) => [...m, { role: "bot", text: data.msg }]);
 
-      setHintsUsed((h) => h + 1); // ⭐ count hint
-      setQuestionsLeft((q) => Math.max(0, q - 2)); // ⭐ deduct 2
+      setHintsUsed((h) => h + 1);
+      setQuestionsLeft((q) => Math.max(0, q - 2));
 
     } catch {
       setMessages((m) => [
@@ -233,42 +155,118 @@ export default function App() {
   /* ================================================= */
 
   const submitGuess = async () => {
-  const name = prompt("Enter team name") || "Anonymous";
+    const name = prompt("Enter team name") || "Anonymous";
 
-  const res = await fetch(`${API}/api/guess`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      killer,
-      weapon,
-      location,
-      time: timeGuess,
-      motive // ⭐ IMPORTANT
-    }),
-  });
+    const res = await fetch(`${API}/api/guess`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        killer,
+        weapon,
+        location,
+        time: timeGuess,
+        motive
+      }),
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  await fetch(`${API}/api/score`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      name,
-      score: data.score,
-      timeLeft,
-      questionsUsed: 10 - questionsLeft,
-      hintsUsed
-    }),
-  });
+    await fetch(`${API}/api/score`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        score: data.score,
+        questionsUsed: 20 - questionsLeft,
+        hintsUsed
+      }),
+    });
 
-  localStorage.removeItem(STORAGE_KEY);
-
-  navigate("/leaderboard");
-};
-
+    setWaiting(true); // ⭐ only change after submit
+  };
 
   /* ================================================= */
-  /* UI (UNCHANGED) */
+  /* GUESS FORM MODAL */
+  /* ================================================= */
+
+  if (showGuess) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-zinc-950 text-white p-4">
+        <div className="w-full max-w-md bg-zinc-900 rounded-2xl shadow-xl p-6 space-y-4">
+          <h2 className="text-xl font-bold text-center">Make Your Guess</h2>
+
+          <input
+            className="w-full bg-zinc-800 rounded px-3 py-2 outline-none"
+            placeholder="Killer"
+            value={killer}
+            onChange={(e) => setKiller(e.target.value)}
+          />
+
+          <input
+            className="w-full bg-zinc-800 rounded px-3 py-2 outline-none"
+            placeholder="Weapon"
+            value={weapon}
+            onChange={(e) => setWeapon(e.target.value)}
+          />
+
+          <input
+            className="w-full bg-zinc-800 rounded px-3 py-2 outline-none"
+            placeholder="Location"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+          />
+
+          <input
+            className="w-full bg-zinc-800 rounded px-3 py-2 outline-none"
+            placeholder="Time"
+            value={timeGuess}
+            onChange={(e) => setTimeGuess(e.target.value)}
+          />
+
+          <input
+            className="w-full bg-zinc-800 rounded px-3 py-2 outline-none"
+            placeholder="Motive"
+            value={motive}
+            onChange={(e) => setMotive(e.target.value)}
+          />
+
+          <div className="flex gap-2">
+            <button
+              onClick={() => setShowGuess(false)}
+              className="flex-1 px-4 py-2 bg-zinc-700 rounded"
+            >
+              Cancel
+            </button>
+
+            <button
+              onClick={submitGuess}
+              className="flex-1 px-4 py-2 bg-emerald-600 rounded"
+            >
+              Submit Guess
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  /* ================================================= */
+  /* WAITING SCREEN */
+  /* ================================================= */
+
+  if (waiting) {
+    return (
+      <div className="h-screen flex items-center justify-center bg-zinc-950 text-white text-center">
+        <div>
+          <h1 className="text-2xl font-bold">Submitted</h1>
+          <p className="text-zinc-400">Waiting for admin to start next round…</p>
+        </div>
+      </div>
+    );
+  }
+
+  /* ================================================= */
+  /* UI */
   /* ================================================= */
 
   return (
@@ -278,25 +276,10 @@ export default function App() {
 
         <div className="p-4 border-b border-zinc-800 text-center">
           <h1 className="text-2xl font-bold">Beat the Bot</h1>
-
-          <p className="text-sm text-zinc-400">
-            Solve the mystery before time or questions run out
-          </p>
-
-          <button
-            onClick={() => {
-              localStorage.removeItem(STORAGE_KEY);
-              window.location.reload();
-            }}
-            className="mt-2 px-3 py-1 bg-red-600 rounded text-xs"
-          >
-            New Game
-          </button>
         </div>
 
         <div className="flex justify-between items-center p-3 border-b border-zinc-800 text-sm">
           <span>Questions: {questionsLeft}</span>
-          <span>{formatTime(timeLeft)}</span>
 
           <div className="space-x-2">
             <button
@@ -350,33 +333,6 @@ export default function App() {
           </button>
         </div>
       </div>
-
-      {showGuess && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center">
-          <div className="bg-zinc-900 p-6 rounded-xl space-y-3 w-80">
-
-            <h2 className="font-bold text-lg">Final Guess</h2>
-
-            <input className="w-full bg-zinc-800 p-2 rounded" placeholder="Killer" value={killer} onChange={(e) => setKiller(e.target.value)} />
-            <input className="w-full bg-zinc-800 p-2 rounded" placeholder="Weapon" value={weapon} onChange={(e) => setWeapon(e.target.value)} />
-            <input className="w-full bg-zinc-800 p-2 rounded" placeholder="Location" value={location} onChange={(e) => setLocation(e.target.value)} />
-            <input className="w-full bg-zinc-800 p-2 rounded" placeholder="Motive" value={motive} onChange={(e) => setMotive(e.target.value)} />  {/* ⭐ added */}
-            <input className="w-full bg-zinc-800 p-2 rounded" placeholder="Time" value={timeGuess} onChange={(e) => setTimeGuess(e.target.value)} />
-
-            <div className="flex gap-2">
-              <button onClick={submitGuess} className="flex-1 bg-emerald-600 py-2 rounded">
-                Submit
-              </button>
-
-              <button onClick={() => setShowGuess(false)} className="flex-1 bg-zinc-700 py-2 rounded">
-                Cancel
-              </button>
-            </div>
-
-          </div>
-        </div>
-      )}
-
     </div>
   );
 }
