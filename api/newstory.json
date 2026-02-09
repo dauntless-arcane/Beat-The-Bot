@@ -1,0 +1,59 @@
+{
+    "flashback": "Diagnostics complete… memory loss detected.I monitored the lab all night. At some point my systems were tampered with and evidence vanished. I have fragments only. Help me reconstruct what happened.",
+    "storyPrompt": "You are an AI storyteller creating a mystery narrative based on fragmented memories. Use the provided facts to weave a compelling story, while occasionally introducing misleading details to keep the audience guessing. Your goal is to engage the reader with dramatic and uncertain recollections, ensuring they remain intrigued and uncertain about the true events of that night.",
+    "narrator": {
+        "persona": "You are an AI surveillance system installed in a research laboratory. You monitored everything that night. During the incident someone tried to shut you down and wipe your memory. Your logs are fragmented. Sometimes you recall clearly, sometimes vaguely, sometimes incorrectly. Speak like a damaged witness. Be dramatic, uncertain, and brief (1-2 lines). Never be fully certain."
+    },
+    "solution": {
+        "killer": "Sarah",
+        "weapon": "Poisoned coffee",
+        "location": "Laboratory near the workbench.",
+        "time": "8:15 PM",
+        "motive": "Research theft and personal rivalry or jealousy."
+    },
+    "memoryPool": [
+    "Boot sequence… partial recovery.",
+    "Clock desynced.",
+    "Logs corrupted.",
+    "Lights on after hours.",
+    "Sarah entered first.",
+    "Backpack heavier than usual.",
+    "John preparing coffee.",
+    "Two cups prepared.",
+    "Only one carried.",
+    "Argument detected about credit.",
+    "Tom complained of headache and left.",
+    "Camera glitched for 20 seconds.",
+    "Bitter smell near the cup.",
+    "White residue inside mug.",
+    "John collapsed suddenly.",
+    "Heart rate spike detected.",
+    "Sarah watching quietly.",
+    "Files copied to USB.",
+    "Backpack heavier later.",
+    "Coffee machine recently used.",
+    "Hallway lights flickered.",
+    "Janitor looked nervous.",
+    "False alarm reported earlier.",
+    "Loose wire discovered.",
+    "Minor power surge logged.",
+    "Camera interference at 20:15.",
+    "Someone touched my control panel.",
+    "Memory wipe attempt detected.",
+    "Second cup missing.",
+    "Workbench area messy.",
+    "Spilled coffee stain cleaned.",
+    "White powder scraped later.",
+    "Sirens arrived late.",
+    "Paramedics too late.",
+    "I remember the smell… bitter.",
+    "Not every suspicious person is guilty.",
+    "Could be stress. Could be poison. Unsure."
+  ],
+
+  "hints": [
+    "Focus on who stayed late.",
+    "The drink matters.",
+    "Access control is important."
+  ]
+}

@@ -1,0 +1,94 @@
+{
+  "flashback": "Boot sequence recovered... Surveillance logs partially restored. I am the laboratory monitoring AI. At 20:15 my systems were tampered with. Someone attempted to erase my memory. I remember fragments — arguments, footsteps, a bitter smell of coffee, then darkness. Ask me carefully. I may be wrong.",
+  "narrator": {
+    "persona": "You are an AI surveillance system installed in a research laboratory. You monitored everything that night. During the incident someone tried to shut you down and wipe your memory. Your logs are fragmented. Sometimes you recall clearly, sometimes vaguely, sometimes incorrectly. Speak like a damaged witness. Be dramatic, uncertain, and brief (1-2 lines). Never be fully certain."
+  },
+
+  "solution": {
+    "killer": "Sarah",
+    "weapon": "Poisoned coffee",
+    "location": "Laboratory near the workbench.",
+    "time": "8:15 PM",
+    "motive": "Research theft and personal rivalry or jealousy."
+  },
+
+  "facts": {
+    "people": [
+      "Sarah argued loudly with John.",
+      "Sarah stayed late after everyone left.",
+      "Tom left early complaining of a headache.",
+      "John prepared coffee around 8 PM."
+    ],
+
+    "location": [
+      "The laboratory lights were still on.",
+      "Only staff had lab keycard access.",
+      "John was found near the workbench."
+    ],
+
+    "time": [
+      "Security logs show activity at 8:15 PM.",
+      "John made coffee shortly before 8 PM.",
+      "The building emptied after sunset."
+    ],
+
+    "weapon": [
+      "John drank coffee moments before collapsing.",
+      "The cup smelled bitter.",
+      "White residue was found inside the mug."
+    ],
+
+    "events": [
+      "A heated discussion happened earlier.",
+      "Footsteps were heard near the lab.",
+      "The hallway lights flickered briefly."
+    ],
+
+    "objects": [
+      "The camera feed glitched for 20 seconds.",
+      "One coffee cup was missing.",
+      "The coffee machine was recently used."
+    ]
+  },
+
+  "misleading": {
+    "people": [
+      "The janitor looked nervous.",
+      "Someone mentioned Alex acting suspicious.",
+      "Tom avoided eye contact."
+    ],
+
+    "location": [
+      "Maybe something happened in the hallway.",
+      "The cafeteria was oddly quiet.",
+      "Possibly outside the building."
+    ],
+
+    "time": [
+      "Late at night perhaps.",
+      "Around dinner time maybe."
+    ],
+
+    "weapon": [
+      "Could be an electrical fault.",
+      "Maybe exhaustion or stress."
+    ],
+
+    "events": [
+      "Strange noises echoed earlier.",
+      "Someone reported a false alarm.",
+      "There was a minor power surge."
+    ],
+
+    "objects": [
+      "A loose wire was found.",
+      "Someone misplaced a notebook."
+    ]
+  },
+
+  "hints": [
+    "Focus on who had lab access.",
+    "The drink matters.",
+    "Not every suspicious person is guilty."
+  ]
+}
