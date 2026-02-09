@@ -4,18 +4,23 @@ import path from "path";
 function loadActiveStory() {
   const root = process.cwd();
 
+  // activeStory.json
+  const activePath = path.resolve(root, "api", "lib", "activeStory.json");
+
   const active = JSON.parse(
-    fs.readFileSync(
-      path.join(root, "./activeStory.json"), // ✅ moved
-      "utf-8"
-    )
+    fs.readFileSync(activePath, "utf-8")
+  );
+
+  // story files
+  const storyPath = path.resolve(
+    root,
+    "api",
+    "stories",
+    `${active.id}.json`
   );
 
   return JSON.parse(
-    fs.readFileSync(
-      path.join(root, "api/stories", `${active.id}.json`),
-      "utf-8"
-    )
+    fs.readFileSync(storyPath, "utf-8")
   );
 }
 
