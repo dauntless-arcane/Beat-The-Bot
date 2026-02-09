@@ -5,7 +5,10 @@ function loadActiveStory() {
   const root = process.cwd();
 
   const active = JSON.parse(
-    fs.readFileSync(path.join(root, "api/activeStory.json"), "utf-8")
+    fs.readFileSync(
+      path.join(root, "api", "activeStory.json"), // ✅ correct
+      "utf-8"
+    )
   );
 
   return JSON.parse(
