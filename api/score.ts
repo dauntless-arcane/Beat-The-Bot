@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import getScoresFromJSON from "./lib/getScoresFromJSON";
+import getScoresFromJSON from "./lib/getScoresFromJSON.js";
 
 const filePath = path.join(process.cwd(), "api/scores.json");
 
