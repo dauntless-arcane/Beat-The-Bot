@@ -65,11 +65,21 @@ export default function App() {
 
         .then(r => r.json())
         .then(data => {
-          if (data.id !== localStorage.getItem("storyId")) {
-            localStorage.clear();
-            window.location.reload();
-          }
-        });
+              const saved = localStorage.getItem("storyId");
+
+              // first time → just save
+              if (!saved) {
+                localStorage.setItem("storyId", data.id);
+                return;
+              }
+
+              // only reload if story actually changed
+              if (data.id !== saved) {
+                localStorage.setItem("storyId", data.id);
+                window.location.reload();
+              }
+            });
+
     }, 5000);
 
     return () => clearInterval(i);
