@@ -23,7 +23,7 @@ function loadActiveStory() {
     fs.readFileSync(storyPath, "utf-8")
   );
 }
-const story = loadActiveStory();
+
 
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
@@ -31,7 +31,7 @@ const MODEL = "google/gemma-2-9b-it";
 
 export default async function handler(req: any, res: any) {
   console.log("=== /api/ask called ===");
-
+  const story = loadActiveStory();
   try {
     /* ---------- Request Debug ---------- */
     console.log("method:", req.method);
