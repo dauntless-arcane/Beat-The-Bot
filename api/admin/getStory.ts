@@ -2,12 +2,19 @@ import fs from "fs";
 import path from "path";
 
 export default function getStory() {
-  const activePath = path.join(process.cwd(), "./activeStory.json");
-  const active = JSON.parse(fs.readFileSync(activePath, "utf-8"));
+  const root = process.cwd();
 
-  const storyPath = path.join(
-    process.cwd(),
-    "api/stories",
+  const active = JSON.parse(
+    fs.readFileSync(
+      path.resolve(root, "api", "lib", "activeStory.json"),
+      "utf-8"
+    )
+  );
+
+  const storyPath = path.resolve(
+    root,
+    "api",
+    "stories",
     `${active.id}.json`
   );
 
