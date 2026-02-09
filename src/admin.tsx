@@ -28,15 +28,18 @@ export default function Admin() {
 
   /* ---------- live leaderboard ---------- */
   useEffect(() => {
-    const load = () =>
-      fetch(`${API}/api/admin/scores`)
-        .then(r => r.json())
-        .then(setScores);
+  const load = () => {
+    fetch(`${API}/api/score`)   // ✅ correct endpoint
+      .then(r => r.json())
+      .then(setScores)
+      .catch(() => setScores([]));
+  };
 
-    load();
-    const i = setInterval(load, 2000);
-    return () => clearInterval(i);
-  }, []);
+  load(); // initial load
+  const i = setInterval(load, 2000); // refresh
+  return () => clearInterval(i);
+}, []);
+
 
   /* ---------- switch story ---------- */
   const changeStory = async () => {
