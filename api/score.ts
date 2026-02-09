@@ -1,14 +1,13 @@
-import getScoresFromJSON from "./lib/getScoresFromJSON.js";
-let scores: any[] = []; // ⭐ memory store (no file)
+let scores: any[] = []; // ⭐ memory only
 
 export default function handler(req: any, res: any) {
-  /* ================= GET (read scores) ================= */
+
+  /* ===== GET scores ===== */
   if (req.method === "GET") {
-    const scores = getScoresFromJSON();
     return res.json(scores);
   }
 
-  /* ========= POST save score ========= */
+  /* ===== SAVE score ===== */
   if (req.method === "POST") {
     const { name, score, hintsUsed, questionsUsed } = req.body;
 
@@ -26,12 +25,6 @@ export default function handler(req: any, res: any) {
         : b.date - a.date
     );
 
-    return res.json({ ok: true });
-  }
-
-  /* ========= RESET (admin) ========= */
-  if (req.method === "DELETE") {
-    scores = [];
     return res.json({ ok: true });
   }
 
