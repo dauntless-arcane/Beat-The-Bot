@@ -59,7 +59,10 @@ export default function App() {
 
   useEffect(() => {
     const i = setInterval(() => {
-      fetch(`${API}/api/activeStory.json`)
+      fetch("/api/activeStory.json", {
+        cache: "no-store"
+      })
+
         .then(r => r.json())
         .then(data => {
           if (data.id !== localStorage.getItem("storyId")) {
