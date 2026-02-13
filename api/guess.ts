@@ -26,7 +26,7 @@ function loadActiveStory() {
 
 
 
-const MODEL = "google/gemma-2-9b-it";
+const MODEL = "deepseek/deepseek-eval";
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const PASS_MARK = 50; // always /100 now
 
