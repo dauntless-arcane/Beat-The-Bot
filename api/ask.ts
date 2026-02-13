@@ -27,7 +27,7 @@ function loadActiveStory() {
 
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const MODEL = "deepseek/deepseek-v3";
+const MODEL = "deepseek/deepseek-chat";
 
 export default async function handler(req: any, res: any) {
   console.log("=== /api/ask called ===");
