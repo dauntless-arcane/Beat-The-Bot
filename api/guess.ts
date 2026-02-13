@@ -26,7 +26,7 @@ function loadActiveStory() {
 
 
 
-const MODEL = "deepseek/deepseek-eval";
+const MODEL = "meta-llama/llama-3-8b-instruct";
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const PASS_MARK = 50; // always /100 now
 
@@ -52,6 +52,7 @@ export default async function handler(req: any, res: any) {
       },
       body: JSON.stringify({
         model: MODEL,
+        temperature: 0,
         messages: [
           {
             role: "system",
