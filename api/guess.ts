@@ -26,7 +26,7 @@ function loadActiveStory() {
 
 
 
-const MODEL = "meta-llama/llama-3-8b-instruct";
+const MODEL = "arcee-ai/trinity-large-preview:free";
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const PASS_MARK = 50; // always /100 now
 
