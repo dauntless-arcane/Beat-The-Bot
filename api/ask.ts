@@ -27,7 +27,7 @@ function loadActiveStory() {
 
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
-const MODEL = "arcee-ai/trinity-large-preview:free";
+const MODEL = "openai/gpt-oss-120b:free";
 
 export default async function handler(req: any, res: any) {
   console.log("=== /api/ask called ===");
