@@ -5,7 +5,6 @@ const API = import.meta.env.DEV ? "http://localhost:3000" : "";
 type Score = {
   name: string;
   score: number;
-  timeLeft: number;
   hintsUsed: number;
   questionsUsed: number;
 };
@@ -16,6 +15,7 @@ export default function Admin() {
   const [activeStory, setActiveStory] = useState("");
   const [scores, setScores] = useState<Score[]>([]);
   const [loading, setLoading] = useState(false);
+  const [redeploying, setRedeploying] = useState(false);
   const [switchMsg, setSwitchMsg] = useState<{ ok: boolean; text: string } | null>(null);
 
   /* ---------- load stories list + current active ---------- */
@@ -42,7 +42,6 @@ export default function Admin() {
         .then((data) => setScores(Array.isArray(data) ? data : []))
         .catch(() => setScores([]));
     };
-
     load();
     const i = setInterval(load, 2000);
     return () => clearInterval(i);
@@ -66,8 +65,16 @@ export default function Admin() {
       if (!res.ok || !data.ok) {
         setSwitchMsg({ ok: false, text: data.error || "Failed to switch story" });
       } else {
-        setActiveStory(selectedStory);
-        setSwitchMsg({ ok: true, text: `Switched to ${selectedStory}` });
+        setRedeploying(true);
+        setSwitchMsg({
+          ok: true,
+          text: `Switched to "${selectedStory}" — Vercel is redeploying (~30s). Refresh after.`,
+        });
+        // After 35s assume redeploy is done and refresh active story
+        setTimeout(() => {
+          setRedeploying(false);
+          setActiveStory(selectedStory);
+        }, 35000);
       }
     } catch {
       setSwitchMsg({ ok: false, text: "Network error — could not switch story" });
@@ -79,7 +86,6 @@ export default function Admin() {
   /* ---------- reset leaderboard ---------- */
   const resetScores = async () => {
     if (!confirm("Reset all scores? This cannot be undone.")) return;
-
     try {
       await fetch(`${API}/api/admin/resetScore`, { method: "POST" });
       setScores([]);
@@ -93,40 +99,36 @@ export default function Admin() {
       <h1 className="text-3xl font-bold">Admin Control Panel</h1>
 
       {/* ===== Active Story Badge ===== */}
-      {activeStory && (
-        <p className="text-sm text-zinc-400">
-          Currently active:{" "}
-          <span className="text-indigo-400 font-semibold">{activeStory}</span>
-        </p>
-      )}
+      <div className="flex items-center gap-3">
+        <span className="text-sm text-zinc-400">Currently active:</span>
+        <span className="text-indigo-400 font-semibold">{activeStory || "loading…"}</span>
+        {redeploying && (
+          <span className="text-xs text-amber-400 animate-pulse">⟳ Redeploying…</span>
+        )}
+      </div>
 
       {/* ===== Story Controls ===== */}
       <div className="flex items-center gap-4 flex-wrap">
         <select
           value={selectedStory}
-          onChange={(e) => {
-            setSelectedStory(e.target.value);
-            setSwitchMsg(null);
-          }}
+          onChange={(e) => { setSelectedStory(e.target.value); setSwitchMsg(null); }}
           className="bg-zinc-800 px-4 py-2 rounded"
         >
           {stories.map((s) => (
-            <option key={s} value={s}>
-              {s}
-            </option>
+            <option key={s} value={s}>{s}</option>
           ))}
         </select>
 
         <button
           onClick={changeStory}
-          disabled={loading || selectedStory === activeStory}
+          disabled={loading || redeploying || selectedStory === activeStory}
           className={`px-4 py-2 rounded transition-colors ${
-            loading || selectedStory === activeStory
+            loading || redeploying || selectedStory === activeStory
               ? "bg-gray-600 cursor-not-allowed opacity-50"
               : "bg-indigo-600 hover:bg-indigo-700"
           }`}
         >
-          {loading ? "Switching…" : "Switch Story"}
+          {loading ? "Switching…" : redeploying ? "Redeploying…" : "Switch Story"}
         </button>
 
         <button
@@ -144,13 +146,20 @@ export default function Admin() {
         </p>
       )}
 
+      {/* ===== Setup reminder ===== */}
+      <div className="text-xs text-zinc-600 border border-zinc-800 rounded p-3 max-w-lg">
+        <p className="font-semibold text-zinc-500 mb-1">Vercel setup required:</p>
+        <p>1. Vercel dashboard → Your project → Settings → Git → Deploy Hooks</p>
+        <p>2. Create a hook, copy the URL</p>
+        <p>3. Add it as env var: <code className="text-zinc-400">VERCEL_DEPLOY_HOOK</code></p>
+        <p>4. Add env var: <code className="text-zinc-400">ACTIVE_STORY=story3</code> (change to switch)</p>
+      </div>
+
       {/* ===== Leaderboard ===== */}
       <div>
         <h2 className="text-xl mb-3">
           Live Submissions{" "}
-          <span className="text-sm text-zinc-500 font-normal">
-            ({scores.length} total)
-          </span>
+          <span className="text-sm text-zinc-500 font-normal">({scores.length} total)</span>
         </h2>
 
         {scores.length === 0 ? (
@@ -159,6 +168,7 @@ export default function Admin() {
           <table className="w-full text-sm border border-zinc-800">
             <thead className="bg-zinc-800">
               <tr>
+                <th className="p-2 text-left">Rank</th>
                 <th className="p-2 text-left">Name</th>
                 <th className="p-2">Score</th>
                 <th className="p-2">Hints Used</th>
@@ -171,6 +181,7 @@ export default function Admin() {
                 .sort((a, b) => b.score - a.score)
                 .map((s, i) => (
                   <tr key={i} className="border-t border-zinc-800 text-center">
+                    <td className="p-2 text-left text-zinc-400">#{i + 1}</td>
                     <td className="p-2 text-left">{s.name}</td>
                     <td className="p-2">{s.score}</td>
                     <td className="p-2">{s.hintsUsed}</td>
