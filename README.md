@@ -1,75 +1,179 @@
-# React + TypeScript + Vite
+# Beat The Bot
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An interactive detective mystery experience built with React, TypeScript, Vite, and serverless API routes.
 
-Currently, two official plugins are available:
+Players interrogate an AI narrator, request hints, and make a final accusation before their question budget runs out.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## Features
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Noir-themed chat UI for asking investigation questions
+- 20-question limit per game
+- Hint system that costs 2 questions
+- Final accusation form with killer, weapon, location, time, and motive
+- AI-based score grading against story solutions
+- Public leaderboard storage in `api/scores.json`
+- Admin panel for story switching and leaderboard resets
+- Pluggable story files under `api/stories/`
 
-Note: This will impact Vite dev & build performances.
+---
 
-## Expanding the ESLint configuration
+## Setup
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Install dependencies
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Start development server
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev
 ```
+
+### Build for production
+
+```bash
+npm run build
+```
+
+### Preview production build
+
+```bash
+npm run preview
+```
+
+---
+
+## Usage
+
+### Play the game
+
+- Open `/` in the browser to start the game
+- Ask questions using the input field
+- Use `Hint −2` to get a hint for 2 question points
+- Click `Guess` to open the accusation form
+- Submit the guess and see the result recorded on the leaderboard
+
+### Visit the leaderboard
+
+- Open `/leaderboard` to see saved score submissions
+
+### Open the admin panel
+
+- Visit `/admin` to manage story selection and leaderboard data
+
+---
+
+## Application Architecture
+
+### Frontend
+
+- `src/main.tsx` — routes the app using `react-router-dom`
+- `src/App.tsx` — main gameplay UI and logic
+- `src/admin.tsx` — story control and admin dashboard
+- `src/Leaderboard.tsx` — leaderboard display
+- `src/index.css` — global styling
+
+### Backend API
+
+- `api/ask.ts` — sends questions to OpenRouter and returns story-aware answers
+- `api/hint.ts` — returns a random hint from the active story
+- `api/guess.ts` — grades the player's accusation against the story solution
+- `api/score.ts` — stores and returns score submissions
+- `api/leaderboard.ts` — reads leaderboard data from `api/scores.json`
+- `api/activeStory.ts` — exposes the currently active story ID
+- `api/admin/stories.ts` — lists available story IDs
+- `api/admin/setStory.ts` — triggers a story switch via Vercel deploy hook
+- `api/admin/resetScore.ts` — clears leaderboard history
+
+---
+
+## Story Data
+
+Stories are defined in `api/stories/*.json` and include:
+
+- `flashback` — initial setup text shown at game start
+- `facts` — reliable story clues for the AI prompt
+- `misleading` — red herrings to add challenge
+- `solution` — the correct accusation data used for scoring
+- `hints` — extra hint messages
+
+The active story is determined by the `ACTIVE_STORY` environment variable and served through `api/activeStory`.
+
+---
+
+## Environment Variables
+
+The app uses these environment variables in production:
+
+- `OPENROUTER_API_KEY` — API key for OpenRouter requests
+- `ACTIVE_STORY` — current story ID, e.g. `story3`
+- `VERCEL_DEPLOY_HOOK` — deploy hook URL used by the admin story switcher
+
+> In development, front-end API calls are proxied to `http://localhost:3000`.
+
+---
+
+## Admin Panel Details
+
+The admin page allows you to:
+
+- view the currently active story
+- select a different story from the available story files
+- trigger a Vercel redeploy after story change
+- reset the leaderboard history
+- monitor recent submission scores live
+
+**Note:** Admin story switching requires `VERCEL_DEPLOY_HOOK` to be configured.
+
+---
+
+## API Endpoints
+
+### Game endpoints
+
+- `POST /api/ask`
+  - Request: `{ question: string, history: string[] }`
+  - Response: `{ msg: string }`
+
+- `POST /api/hint`
+  - Response: `{ msg: string }`
+
+- `POST /api/guess`
+  - Request: `{ killer, weapon, location, time, motive }`
+  - Response: `{ score, total, success }`
+
+- `GET /api/score`
+  - Returns saved score entries
+
+- `POST /api/score`
+  - Saves a score payload `{ name, score, questionsUsed, hintsUsed }`
+
+- `GET /api/leaderboard`
+  - Returns leaderboard entries
+
+- `GET /api/activeStory`
+  - Returns `{ id: string }`
+
+### Admin endpoints
+
+- `GET /api/admin/stories` — lists story IDs
+- `POST /api/admin/setStory` — selects a new story and triggers deploy
+- `POST /api/admin/resetScore` — resets scoreboard
+
+---
+
+## Notes
+
+- `api/ask.ts` uses story-specific facts, misleading clues, and solution data to shape AI responses.
+- `api/guess.ts` scores guesses by asking OpenRouter to compare the player input against the current story solution.
+- Score persistence is file-based in `api/scores.json`.
+
+---
+
+## License
+
+This repository is currently configured as a private application.
