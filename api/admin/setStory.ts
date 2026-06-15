@@ -18,6 +18,10 @@ export default async function handler(req: any, res: any) {
     return res.status(404).json({ error: `Story "${id}" not found` });
   }
 
+  // Update activeStory.json
+  const activePath = path.resolve(process.cwd(), "api", "lib", "activeStory.json");
+  fs.writeFileSync(activePath, JSON.stringify({ id }, null, 2));
+
   // Trigger a Vercel redeploy via deploy hook
   // VERCEL_DEPLOY_HOOK is set in your Vercel dashboard env vars
   const hook = process.env.VERCEL_DEPLOY_HOOK;
