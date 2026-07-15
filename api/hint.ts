@@ -7,9 +7,11 @@ export default function handler(req: any, res: any) {
 
   try {
     const story = loadActiveStory() as any;
+    console.log("Story loaded:", !!story);
+    console.log("Hints:", story.hints);
 
     if (!story.hints || story.hints.length === 0) {
-      return res.status(404).json({ msg: "No hints available for this story." });
+      return res.status(404).json({ msg: "No hints available." });
     }
 
     const hint = story.hints[Math.floor(Math.random() * story.hints.length)];
