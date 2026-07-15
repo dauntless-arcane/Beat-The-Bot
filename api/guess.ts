@@ -26,7 +26,7 @@ function loadActiveStory() {
 
 
 
-const MODEL = "arcee-ai/trinity-large-preview:free";
+const MODEL = "openai/gpt-oss-120b:free";
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const PASS_MARK = 50; // always /100 now
 
@@ -90,6 +90,7 @@ ${JSON.stringify(guess, null, 2)}
 
     const data = await response.json();
     const raw = data?.choices?.[0]?.message?.content || "{}";
+    console.log("LLM raw response:", raw);
 
     /* ================= SAFE PARSE ================= */
 
