@@ -1,12 +1,6 @@
-import fs from "fs";
-import path from "path";
+import { getScores } from "./lib/scoresStore";
 
-const filePath = path.join(process.cwd(), "api/scores.json");
-
-export default function handler(_req: any, res: any) {
-  if (!fs.existsSync(filePath)) fs.writeFileSync(filePath, "[]");
-
-  const scores = JSON.parse(fs.readFileSync(filePath, "utf-8"));
-
+export default async function handler(_req: unknown, res: { json: (b: unknown) => void }) {
+  const scores = await getScores();
   res.json(scores);
 }

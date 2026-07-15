@@ -500,20 +500,31 @@ export default function App() {
   /* Submit Guess */
   /* ================================================= */
 
+  const [submittingGuess, setSubmittingGuess] = useState(false);
+
   const submitGuess = async () => {
+    if (submittingGuess) return;
     const name = prompt("Enter team name") || "Anonymous";
-    const res = await fetch(`${API}/api/guess`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ killer, weapon, location, time: timeGuess, motive }),
-    });
-    const data = await res.json();
-    await fetch(`${API}/api/score`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name, score: data.score, questionsUsed: 20 - questionsLeft, hintsUsed }),
-    });
-    setWaiting(true);
+    setSubmittingGuess(true);
+    try {
+      const res = await fetch(`${API}/api/guess`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ killer, weapon, location, time: timeGuess, motive }),
+      });
+      const data = await res.json();
+      await fetch(`${API}/api/score`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, score: data.score, questionsUsed: 20 - questionsLeft, hintsUsed }),
+      });
+      setShowGuess(false);
+      setWaiting(true);
+    } catch {
+      alert("Couldn't submit your accusation — check your connection and try again.");
+    } finally {
+      setSubmittingGuess(false);
+    }
   };
 
   /* ================================================= */
@@ -536,7 +547,9 @@ export default function App() {
 
             <div className="btb-modal-actions">
               <button onClick={() => setShowGuess(false)} className="btn-cancel">Cancel</button>
-              <button onClick={submitGuess} className="btn-submit">Submit</button>
+              <button onClick={submitGuess} className="btn-submit" disabled={submittingGuess}>
+                {submittingGuess ? "Submitting…" : "Submit"}
+              </button>
             </div>
           </div>
         </div>

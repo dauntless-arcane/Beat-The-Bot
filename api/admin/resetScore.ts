@@ -1,13 +1,11 @@
-import fs from "fs";
-import path from "path";
+import { resetScores } from "../lib/scoresStore";
 
-export default function handler(req: any, res: any) {
+export default async function handler(req: { method?: string }, res: { json: (b: unknown) => void; status: (n: number) => { json: (b: unknown) => void } }) {
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  const filePath = path.resolve(process.cwd(), "api", "scores.json");
-  fs.writeFileSync(filePath, "[]");
+  await resetScores();
 
   return res.json({ ok: true });
 }
