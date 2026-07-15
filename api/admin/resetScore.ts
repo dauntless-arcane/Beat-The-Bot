@@ -5,7 +5,11 @@ export default async function handler(req: { method?: string }, res: { json: (b:
     return res.status(405).json({ error: "Method not allowed" });
   }
 
-  await resetScores();
-
-  return res.json({ ok: true });
+  try {
+    await resetScores();
+    return res.json({ ok: true });
+  } catch (err) {
+    console.error("[/api/admin/resetScore] unexpected error:", (err as Error).message);
+    return res.status(500).json({ error: "Failed to reset scores" });
+  }
 }

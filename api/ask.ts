@@ -5,9 +5,10 @@ const MODEL = "openai/gpt-oss-120b:free";
 
 export default async function handler(req: any, res: any) {
   console.log("=== /api/ask called ===");
-  const story = loadActiveStory();
 
   try {
+    const story = loadActiveStory();
+
     console.log("method:", req.method);
     console.log("body:", req.body);
 

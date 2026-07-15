@@ -5,8 +5,9 @@ const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const PASS_MARK = 50; // always /100 now
 
 export default async function handler(req: any, res: any) {
-  const story = loadActiveStory();
   try {
+    const story = loadActiveStory();
+
     if (req.method !== "POST") {
       return res.status(405).json({ error: "Method not allowed" });
     }
